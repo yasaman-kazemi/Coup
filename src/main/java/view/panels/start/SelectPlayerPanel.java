@@ -7,6 +7,7 @@ import view.MyPanel;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -34,6 +35,7 @@ public class SelectPlayerPanel extends MyPanel {
         setMouseListenerToPanels();
 
         startButton.setEnabled(false);
+        startButton.addActionListener(this::startButtonActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -67,6 +69,10 @@ public class SelectPlayerPanel extends MyPanel {
                                 .addComponent(startButton)
                                 .addContainerGap())
         );
+    }
+
+    private void startButtonActionPerformed(ActionEvent e) {
+
     }
 
     private void setMouseListenerToPanels() {
