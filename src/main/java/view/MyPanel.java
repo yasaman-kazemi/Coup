@@ -3,8 +3,10 @@ package view;
 import javax.swing.*;
 
 public class MyPanel extends JPanel {
+    protected ViewController viewController;
 
-    public MyPanel() {
+    public MyPanel(ViewController viewController) {
+        this.viewController = viewController;
         setPreferredSize(new java.awt.Dimension(788, 588));
 
         setBackground(new java.awt.Color(255, 255, 255));

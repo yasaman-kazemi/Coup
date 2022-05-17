@@ -3,6 +3,7 @@ package view.panels.start;
 import player.*;
 import utils.ImageLoader;
 import view.MyPanel;
+import view.ViewController;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -19,8 +20,8 @@ public class SelectPlayerPanel extends MyPanel {
     private JButton startButton;
     private Player[] players;
 
-    public SelectPlayerPanel() {
-        super();
+    public SelectPlayerPanel(ViewController viewController) {
+        super(viewController);
         players = new Player[3];
         character1Panel = new CharacterPanel(ImageLoader.getCautiousKiller(), "Cautious Killer");
         character3Panel = new CharacterPanel(ImageLoader.getCouper(), "Couper");
@@ -79,157 +80,58 @@ public class SelectPlayerPanel extends MyPanel {
         character1Panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (players[0] != null && players[0] instanceof CautiousKiller) {
-                    players[0] = null;
-                    character1Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[1] != null && players[1] instanceof CautiousKiller) {
-                    players[1] = null;
-                    character1Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[2] != null && players[2] instanceof CautiousKiller) {
-                    players[2] = null;
-                    character1Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else {
-                    if (players[0] == null) {
-                        players[0] = new CautiousKiller();
-                        if (players[1] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character1Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[1] == null) {
-                        players[1] = new CautiousKiller();
-                        if (players[0] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character1Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[2] == null) {
-                        players[2] = new CautiousKiller();
-                        if (players[1] != null && players[0] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character1Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    }
-                }
+                mouseClickedActionPerformed(new CautiousKiller(), character1Panel);
             }
         });
 
         character2Panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (players[0] != null && players[0] instanceof Paranoid) {
-                    players[0] = null;
-                    character2Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[1] != null && players[1] instanceof Paranoid) {
-                    players[1] = null;
-                    character2Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[2] != null && players[2] instanceof Paranoid) {
-                    players[2] = null;
-                    character2Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else {
-                    if (players[0] == null) {
-                        players[0] = new Paranoid();
-                        if (players[1] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character2Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[1] == null) {
-                        players[1] = new Paranoid();
-                        if (players[0] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character2Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[2] == null) {
-                        players[2] = new Paranoid();
-                        if (players[1] != null && players[0] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character2Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    }
-                }
+                mouseClickedActionPerformed(new Paranoid(), character2Panel);
             }
         });
 
         character3Panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (players[0] != null && players[0] instanceof Couper) {
-                    players[0] = null;
-                    character3Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[1] != null && players[1] instanceof Couper) {
-                    players[1] = null;
-                    character3Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[2] != null && players[2] instanceof Couper) {
-                    players[2] = null;
-                    character3Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else {
-                    if (players[0] == null) {
-                        players[0] = new Couper();
-                        if (players[1] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character3Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[1] == null) {
-                        players[1] = new Couper();
-                        if (players[0] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character3Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[2] == null) {
-                        players[2] = new Couper();
-                        if (players[1] != null && players[0] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character3Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    }
-                }
+                mouseClickedActionPerformed(new Couper(), character3Panel);
             }
         });
 
         character4Panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (players[0] != null && players[0] instanceof Mystery) {
-                    players[0] = null;
-                    character4Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[1] != null && players[1] instanceof Mystery) {
-                    players[1] = null;
-                    character4Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else if (players[2] != null && players[2] instanceof Mystery) {
-                    players[2] = null;
-                    character4Panel.setBorder(null);
-                    startButton.setEnabled(false);
-                } else {
-                    if (players[0] == null) {
-                        players[0] = new Mystery();
-                        if (players[1] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character4Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[1] == null) {
-                        players[1] = new Mystery();
-                        if (players[0] != null && players[2] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character4Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    } else if (players[2] == null) {
-                        players[2] = new Mystery();
-                        if (players[1] != null && players[0] != null) {
-                            startButton.setEnabled(true);
-                        }
-                        character4Panel.setBorder(new LineBorder(Color.yellow, 3));
-                    }
-                }
+                mouseClickedActionPerformed(new Mystery(), character4Panel);
             }
         });
+    }
+
+    private void mouseClickedActionPerformed(Player player, CharacterPanel characterPanel) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] != null && players[i].getClass().equals(player.getClass())) {
+                unSelectPlayer(i, characterPanel);
+                return;
+            }
+        }
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] == null) {
+                selectPlayer(i, player, characterPanel);
+                return;
+            }
+        }
+    }
+
+    private void selectPlayer(int playerNumber, Player player, CharacterPanel characterPanel) {
+        players[playerNumber] = player;
+        if (players[0] != null && players[1] != null && players[2] != null) {
+            startButton.setEnabled(true);
+        }
+        characterPanel.setBorder(new LineBorder(Color.yellow, 3));
+    }
+
+    private void unSelectPlayer(int playerNumber, CharacterPanel characterPanel) {
+        players[playerNumber] = null;
+        characterPanel.setBorder(null);
+        startButton.setEnabled(false);
     }
 }

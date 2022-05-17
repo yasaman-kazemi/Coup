@@ -1,6 +1,7 @@
 package view.panels.gamePanel;
 
 import view.MyPanel;
+import view.ViewController;
 
 public class GamePanel extends MyPanel {
     private CenterPanel centerPanel;
@@ -10,8 +11,8 @@ public class GamePanel extends MyPanel {
     private LeftRightPlayerPanel leftPlayerPanel;
 
 
-    public GamePanel() {
-        super();
+    public GamePanel(ViewController viewController) {
+        super(viewController);
         centerPanel = new CenterPanel();
         downPlayerPanel = new UpDownPlayerPanel();
         rightPlayerPanel = new LeftRightPlayerPanel();

@@ -12,6 +12,6 @@ public class ViewController {
     }
 
     public void start() {
-        this.frame = new MyFrame(new SelectPlayerPanel());
+        this.frame = new MyFrame(new SelectPlayerPanel(this));
     }
 }
