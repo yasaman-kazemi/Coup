@@ -72,7 +72,7 @@ public class SelectPlayerPanel extends MyPanel {
     }
 
     private void startButtonActionPerformed(ActionEvent e) {
-
+        //todo start with 3 player
     }
 
     private void setMouseListenerToPanels() {
