@@ -22,11 +22,11 @@ public class Game {
         this.desk = desk;
     }
 
-    public void setPlayers(Player player1, Player player2, Player player3) {
+    public void setPlayers(Player[] players) {
         this.players[0] = new Player();
-        this.players[1] = player1;
-        this.players[2] = player2;
-        this.players[3] = player3;
+        this.players[1] = players[0];
+        this.players[2] = players[1];
+        this.players[3] = players[2];
     }
 
     public void start() {

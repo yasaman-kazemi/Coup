@@ -18,8 +18,8 @@ public class GameServices {
         this.game = game;
     }
 
-    public void selectPlayers(Player player1, Player player2, Player player3) {
-        game.setPlayers(player1, player2, player3);
+    public void selectPlayers(Player[] players) {
+        game.setPlayers(players);
     }
 
     public void coupAgainst(Player beCouped) {

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class UpDownPlayerPanel extends JPanel {
     public UpDownPlayerPanel() {
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(0, 255, 255));
         javax.swing.GroupLayout player3PanelLayout = new javax.swing.GroupLayout(this);
         setLayout(player3PanelLayout);
         player3PanelLayout.setHorizontalGroup(

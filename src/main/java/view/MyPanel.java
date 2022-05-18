@@ -7,7 +7,7 @@ public class MyPanel extends JPanel {
 
     public MyPanel(ViewController viewController) {
         this.viewController = viewController;
-        setPreferredSize(new java.awt.Dimension(788, 588));
+        setPreferredSize(new java.awt.Dimension(808, 588));
 
         setBackground(new java.awt.Color(255, 255, 255));
 

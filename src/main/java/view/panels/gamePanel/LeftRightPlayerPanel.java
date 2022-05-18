@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class LeftRightPlayerPanel extends JPanel {
     public LeftRightPlayerPanel() {
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(255, 0, 255));
 
         javax.swing.GroupLayout player2PanelLayout = new javax.swing.GroupLayout(this);
         setLayout(player2PanelLayout);
