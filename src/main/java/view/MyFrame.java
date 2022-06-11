@@ -12,11 +12,12 @@ public class MyFrame extends JFrame {
 
     private void initComponents() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setMyLayout();
+        setVisible(true);
     }
 
     public void setMyLayout() {
-        this.setVisible(false);
         setPreferredSize(new java.awt.Dimension(820, 600));
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -36,7 +37,6 @@ public class MyFrame extends JFrame {
         );
 
         pack();
-        this.setVisible(true);
     }
 
     public MyPanel getMainPanel() {

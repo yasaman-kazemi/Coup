@@ -23,5 +23,6 @@ public class ViewController {
         frame.remove(frame.getMainPanel());
         frame.setMainPanel(new GamePanel(this));
         frame.setMyLayout();
+        frame.setVisible(true);
     }
 }
