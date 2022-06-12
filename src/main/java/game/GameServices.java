@@ -49,4 +49,8 @@ public class GameServices {
     public void challenge(Player player, Card card) {
         Challenge challenge = new Challenge(player, card);
     }
+
+    public Player[] getPlayers() {
+        return game.getPlayers();
+    }
 }

@@ -48,4 +48,8 @@ public class Game {
     public void changeTurn() {
         this.turn = (this.turn + 1) % 4;
     }
+
+    public Player[] getPlayers() {
+        return players;
+    }
 }

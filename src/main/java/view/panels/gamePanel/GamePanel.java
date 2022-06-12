@@ -1,9 +1,10 @@
 package view.panels.gamePanel;
 
+import player.Player;
 import view.MyPanel;
 import view.ViewController;
-import view.panels.gamePanel.playerPanel.LeftRightPlayerPanel;
-import view.panels.gamePanel.playerPanel.UpDownPlayerPanel;
+import view.panels.gamePanel.playerPanel.vertical.LeftRightPlayerPanel;
+import view.panels.gamePanel.playerPanel.horizontal.UpDownPlayerPanel;
 
 public class GamePanel extends MyPanel {
     private CenterPanel centerPanel;
@@ -15,11 +16,12 @@ public class GamePanel extends MyPanel {
 
     public GamePanel(ViewController viewController) {
         super(viewController);
+        Player[] players = viewController.getPlayers();
         centerPanel = new CenterPanel();
-        downPlayerPanel = new UpDownPlayerPanel();
-        rightPlayerPanel = new LeftRightPlayerPanel();
-        upPlayerPanel = new UpDownPlayerPanel();
-        leftPlayerPanel = new LeftRightPlayerPanel();
+        downPlayerPanel = new UpDownPlayerPanel(players[0], true);
+        rightPlayerPanel = new LeftRightPlayerPanel(players[1], false);
+        upPlayerPanel = new UpDownPlayerPanel(players[2], false);
+        leftPlayerPanel = new LeftRightPlayerPanel(players[3], true);
         initComponents();
     }
 

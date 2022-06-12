@@ -1,18 +1,38 @@
-package view.panels.gamePanel.playerPanel;
+package view.panels.gamePanel.playerPanel.horizontal;
+
+import card.*;
+import player.*;
+import utils.ImageLoader;
+import view.panels.gamePanel.playerPanel.PlayerPanel;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
-public class UpDownPlayerPanel extends JPanel {
+public class UpDownPlayerPanel extends PlayerPanel {
     private JPanel panel1;
     private JPanel panel2;
     private JPanel panel3;
     private JPanel panel4;
+    private Player player;
 
-    public UpDownPlayerPanel() {
-        panel1 = new CardPanel();
-        panel2 = new CardPanel();
-        panel3 = new CardPanel();
-        panel4 = new CardPanel();
+    public UpDownPlayerPanel(Player player, boolean isYou) {
+        this.player = player;
+        String imageAddress1;
+        String imageAddress2;
+        if (isYou) {
+            ArrayList<Card> cards = player.getCards();
+            Card card0 = cards.get(0);
+            Card card1 = cards.get(1);
+            imageAddress1 = getImage(card0);
+            imageAddress2 = getImage(card1);
+        } else {
+            imageAddress1 = ImageLoader.getUpCard();
+            imageAddress2 = ImageLoader.getUpCard();
+        }
+        panel1 = new CoinPanel(ImageLoader.getCoin2(), player.getCoin());
+        panel2 = new CardPanel(imageAddress1);
+        panel3 = new CardPanel(imageAddress2);
+        panel4 = new ProfilePanel(getImage(player));
 
         setLayout();
     }

@@ -1,7 +1,9 @@
 package view;
 
+import card.*;
 import game.GameServices;
-import player.Player;
+import player.*;
+import utils.ImageLoader;
 import view.panels.gamePanel.GamePanel;
 import view.panels.start.SelectPlayerPanel;
 
@@ -24,5 +26,9 @@ public class ViewController {
         frame.setMainPanel(new GamePanel(this));
         frame.setMyLayout();
         frame.setVisible(true);
+    }
+
+    public Player[] getPlayers() {
+        return gameServices.getPlayers();
     }
 }

@@ -9,7 +9,7 @@ public class MyPanel extends JPanel {
         this.viewController = viewController;
         setPreferredSize(new java.awt.Dimension(808, 588));
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(25, 185, 105));
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(this);
         setLayout(mainPanelLayout);

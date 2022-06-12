@@ -1,7 +1,6 @@
 package player;
 
 import card.Card;
-import game.strategy.Strategy;
 
 import java.util.ArrayList;
 
