@@ -18,7 +18,7 @@ public class MyFrame extends JFrame {
     }
 
     public void setMyLayout() {
-        setPreferredSize(new java.awt.Dimension(820, 600));
+        setPreferredSize(new java.awt.Dimension(820, 630));
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

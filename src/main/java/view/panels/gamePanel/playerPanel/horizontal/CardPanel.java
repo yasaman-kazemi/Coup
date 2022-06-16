@@ -1,7 +1,5 @@
 package view.panels.gamePanel.playerPanel.horizontal;
 
-import utils.ImageLoader;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package view.panels.gamePanel.playerPanel.vertical;
 
-import utils.ImageLoader;
+import player.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,8 +10,10 @@ import java.io.IOException;
 
 public class CardPanel extends JPanel {
     protected Image image;
+    protected Player player;
 
-    public CardPanel(String imageAddress) {
+    public CardPanel(String imageAddress, Player player) {
+        this.player = player;
         try {
             image = ImageIO.read(new File(imageAddress));
         } catch (IOException e) {

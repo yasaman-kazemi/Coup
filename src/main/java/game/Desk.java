@@ -69,4 +69,8 @@ public class Desk {
         Collections.shuffle(cards);
         return cards.pop();
     }
+
+    public void giveCard(Card card) {
+        cards.add(card);
+    }
 }

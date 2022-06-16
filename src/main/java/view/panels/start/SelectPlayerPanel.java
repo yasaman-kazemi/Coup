@@ -23,10 +23,10 @@ public class SelectPlayerPanel extends MyPanel {
     public SelectPlayerPanel(ViewController viewController) {
         super(viewController);
         players = new Player[3];
-        character1Panel = new CharacterPanel(ImageLoader.getCautiousKiller(), "Cautious Killer");
-        character3Panel = new CharacterPanel(ImageLoader.getCouper(), "Couper");
-        character2Panel = new CharacterPanel(ImageLoader.getParanoid(), "Paranoid");
-        character4Panel = new CharacterPanel(ImageLoader.getMystery(), "Mystery");
+        character1Panel = new CharacterPanel(ImageLoader.getStartCautiousKiller(), "Cautious Killer");
+        character3Panel = new CharacterPanel(ImageLoader.getStartCouper(), "Couper");
+        character2Panel = new CharacterPanel(ImageLoader.getStartParanoid(), "Paranoid");
+        character4Panel = new CharacterPanel(ImageLoader.getStartMystery(), "Mystery");
         startButton = new javax.swing.JButton();
         initComponents();
     }
@@ -77,33 +77,19 @@ public class SelectPlayerPanel extends MyPanel {
     }
 
     private void setMouseListenerToPanels() {
-        character1Panel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                mouseClickedActionPerformed(new CautiousKiller(), character1Panel);
-            }
-        });
+        character1Panel.addMouseListener(getMouseAdapter(new CautiousKiller(viewController.getGameService()), character1Panel));
+        character2Panel.addMouseListener(getMouseAdapter(new Paranoid(viewController.getGameService()), character2Panel));
+        character3Panel.addMouseListener(getMouseAdapter(new Couper(viewController.getGameService()), character3Panel));
+        character4Panel.addMouseListener(getMouseAdapter(new Mystery(viewController.getGameService()), character4Panel));
+    }
 
-        character2Panel.addMouseListener(new MouseAdapter() {
+    public MouseAdapter getMouseAdapter(Player player, CharacterPanel characterPanel) {
+        return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                mouseClickedActionPerformed(new Paranoid(), character2Panel);
+                mouseClickedActionPerformed(player, characterPanel);
             }
-        });
-
-        character3Panel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                mouseClickedActionPerformed(new Couper(), character3Panel);
-            }
-        });
-
-        character4Panel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                mouseClickedActionPerformed(new Mystery(), character4Panel);
-            }
-        });
+        };
     }
 
     private void mouseClickedActionPerformed(Player player, CharacterPanel characterPanel) {
@@ -126,7 +112,7 @@ public class SelectPlayerPanel extends MyPanel {
         if (players[0] != null && players[1] != null && players[2] != null) {
             startButton.setEnabled(true);
         }
-        characterPanel.setBorder(new LineBorder(Color.yellow, 3));
+        characterPanel.setBorder(new LineBorder(Color.orange, 3));
     }
 
     private void unSelectPlayer(int playerNumber, CharacterPanel characterPanel) {

@@ -1,16 +1,13 @@
-package game.strategy;
+package game.strategy.attackStrategy;
 
-import game.Desk;
 import player.Player;
 
 public class CommanderStrategy extends Strategy{
     private Player commander;
-    private Desk desk;
     private Player robbed;
 
-    public CommanderStrategy(Player commander, Desk desk, Player robbed) {
+    public CommanderStrategy(Player commander, Player robbed) {
         this.commander = commander;
-        this.desk = desk;
         this.robbed = robbed;
     }
 

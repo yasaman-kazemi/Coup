@@ -1,4 +1,4 @@
-package game.strategy;
+package game.strategy.attackStrategy;
 
 import game.Desk;
 import game.GameServices;

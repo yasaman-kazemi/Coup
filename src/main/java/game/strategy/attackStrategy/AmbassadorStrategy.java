@@ -1,4 +1,4 @@
-package game.strategy;
+package game.strategy.attackStrategy;
 
 import card.Card;
 import game.Desk;
@@ -6,14 +6,12 @@ import game.GameServices;
 import player.Player;
 
 public class AmbassadorStrategy extends Strategy {
-    private Desk desk;
     private Player player;
-    private GameServices gameServices;
+    private Desk desk;
 
-    public AmbassadorStrategy(Desk desk, Player player, GameServices gameServices) {
-        this.desk = desk;
+    public AmbassadorStrategy(Player player, Desk desk) {
         this.player = player;
-        this.gameServices = gameServices;
+        this.desk = desk;
     }
 
     @Override
@@ -22,6 +20,5 @@ public class AmbassadorStrategy extends Strategy {
         Card card2 = desk.getRandomCard();
         player.getCards().add(card1);
         player.getCards().add(card2);
-        gameServices.removeCard(player, 2);
     }
 }

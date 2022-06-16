@@ -12,6 +12,8 @@ public class CoinPanel extends CardPanel {
         JLabel coinCountLabel = new JLabel();
         setBackground(Color.yellow);
 
+        setPreferredSize(new Dimension(80, 128));
+
         coinCountLabel.setFont(new java.awt.Font("Helvetica Neue", Font.PLAIN, 18));
         coinCountLabel.setText("X " + coinCount);
 
@@ -22,7 +24,8 @@ public class CoinPanel extends CardPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                                 .addContainerGap(25, Short.MAX_VALUE)
                                 .addComponent(coinCountLabel)
-                                .addGap(29, 29, 29))
+                                .addGap(29, 29, 29)
+                        )
         );
         panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
