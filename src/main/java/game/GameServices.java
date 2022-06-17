@@ -1,8 +1,12 @@
 package game;
 
 import card.Card;
-import game.strategy.attackStrategy.Strategy;
+import game.strategy.Strategy;
+import game.strategy.attackStrategy.AssassinStrategy;
+import game.strategy.attackStrategy.Challenge;
+import game.strategy.attackStrategy.CommanderStrategy;
 import player.CautiousKiller;
+import player.Paranoid;
 import player.Player;
 
 import javax.swing.*;
@@ -43,20 +47,47 @@ public class GameServices {
         killed.kill();
     }
 
-    public void challenge(Player player, String cardName) {
-        Challenge challenge = new Challenge(player, cardName);
+    public int challenge(Player challenger, Player challenged, Strategy strategy) {
+        if (challenger.isDead()) return 0;
+        String cardName = strategy.getName();
+        if (challenger.equals(challenged) || cardName.equals("Change cards") || cardName.equals("Coup") ||
+                cardName.equals("Earn") || cardName.equals("Foreign aid")) return 0;
+        int response = 0;
+        if (challenger.equals(getPlayers()[0])) {
+            String msg = "will you challenge " + challenged.getName() + " for " + cardName;
+            if (strategy instanceof AssassinStrategy) {
+                String opponentName = ((AssassinStrategy) strategy).getKilled().getName();
+                msg = msg + " against " + opponentName;
+            } else if (strategy instanceof CommanderStrategy) {
+                String opponentName = ((CommanderStrategy) strategy).getRobbed().getName();
+                msg = msg + " against " + opponentName;
+            }
+            response = JOptionPane.showConfirmDialog(null,
+                    msg, "Challenging",
+                    JOptionPane.YES_NO_OPTION);
+        }
+        if (response == 0) {
+            Challenge challenge = new Challenge(challenger, challenged, cardName, getDesk());
+            return challenge.play();
+        }
+        return 0;
     }
 
     public void playStrategy(Player player, Strategy strategy) {
-        int response = JOptionPane.showConfirmDialog(null,
-                "will you challenge " + player.getName() + " for " + strategy.getName(), "Challenging",
-                JOptionPane.YES_NO_OPTION);
+        int response = challenge(getPlayers()[0], player, strategy);
         if (response == 0) {
-
-        } else {
+            strategy.play();
+            if (game.getRound() % 2 == 1) {
+                Paranoid paranoid = (Paranoid) game.getPlayer("Paranoid");
+                if (paranoid != null && !paranoid.isDead()) {
+                    paranoid.challenge(player, strategy);
+                }
+            }
+        } else if (response == 1) {
             strategy.play();
         }
     }
+
 
     public Player[] getPlayers() {
         return game.getPlayers();
@@ -194,7 +225,7 @@ public class GameServices {
         ArrayList<String> filteredAlivePlayers = getFilteredAlivePlayers();
         String side = filteredAlivePlayers.get(new Random().nextInt(filteredAlivePlayers.size()));
         Player result = getPlayer(side);
-        if (result.equals(player)){
+        if (result.equals(player)) {
             result = getRandomAlivePlayer(player);
         }
         return result;

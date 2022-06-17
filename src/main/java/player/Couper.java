@@ -12,9 +12,9 @@ public class Couper extends Player {
     @Override
     public void play() {
         if (coin < 7) {
-            gameServices.playStrategy(new DukeStrategy(this, gameServices.getDesk()));
+            gameServices.playStrategy(this, new DukeStrategy(this, gameServices.getDesk()));
         } else {
-            gameServices.playStrategy(new Coup(this, gameServices.getRandomAlivePlayer(this), gameServices));
+            gameServices.playStrategy(this, new Coup(this, gameServices.getRandomAlivePlayer(this), gameServices));
         }
     }
 

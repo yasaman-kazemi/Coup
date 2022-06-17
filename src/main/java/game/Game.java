@@ -1,6 +1,5 @@
 package game;
 
-import game.strategy.attackStrategy.Strategy;
 import player.Player;
 
 import javax.swing.*;
@@ -9,6 +8,7 @@ public class Game {
     private Player[] players;
     private Desk desk;
     private int turn;
+    private int round = 0;
 
     public Game() {
         players = new Player[4];
@@ -35,10 +35,6 @@ public class Game {
         desk.distributePieces(players);
     }
 
-    public void play(Strategy strategy) {
-
-    }
-
     public int getTurn() {
         return turn;
     }
@@ -49,6 +45,7 @@ public class Game {
 
     public void changeTurn() {
         this.turn = (this.turn + 1) % 4;
+        if (turn == 0) round++;
         Player winner = hasEnd();
         if (winner != null) {
             JOptionPane.showMessageDialog(null, "Winner: " + winner.getName());
@@ -70,5 +67,16 @@ public class Game {
 
     public Player[] getPlayers() {
         return players;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public Player getPlayer(String playerName) {
+        for (Player player : players)
+            if (player.getName().equals(playerName))
+                return player;
+        return null;
     }
 }

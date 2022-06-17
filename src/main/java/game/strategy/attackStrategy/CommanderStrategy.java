@@ -1,5 +1,6 @@
 package game.strategy.attackStrategy;
 
+import game.strategy.Strategy;
 import player.Player;
 
 public class CommanderStrategy extends Strategy {
@@ -19,6 +20,14 @@ public class CommanderStrategy extends Strategy {
 
     @Override
     public String getName() {
-        return "Commander strategy";
+        return "Commander";
+    }
+
+    public Player getCommander() {
+        return commander;
+    }
+
+    public Player getRobbed() {
+        return robbed;
     }
 }

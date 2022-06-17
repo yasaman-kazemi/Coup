@@ -1,6 +1,7 @@
 package game.strategy.attackStrategy;
 
 import game.GameServices;
+import game.strategy.Strategy;
 import player.Player;
 
 public class Coup extends Strategy {
@@ -22,6 +23,18 @@ public class Coup extends Strategy {
 
     @Override
     public String getName() {
-        return "Coup strategy";
+        return "Coup";
+    }
+
+    public Player getCouper() {
+        return couper;
+    }
+
+    public Player getBeCouped() {
+        return beCouped;
+    }
+
+    public GameServices getGameServices() {
+        return gameServices;
     }
 }

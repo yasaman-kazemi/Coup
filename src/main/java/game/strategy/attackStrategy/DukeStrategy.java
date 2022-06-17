@@ -1,6 +1,7 @@
 package game.strategy.attackStrategy;
 
 import game.Desk;
+import game.strategy.Strategy;
 import player.Player;
 
 public class DukeStrategy extends Strategy {
@@ -19,6 +20,14 @@ public class DukeStrategy extends Strategy {
 
     @Override
     public String getName() {
-        return "Duke strategy";
+        return "Duke";
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Desk getDesk() {
+        return desk;
     }
 }

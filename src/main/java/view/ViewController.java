@@ -72,12 +72,12 @@ public class ViewController {
     }
 
     public void earn() {
-        gameServices.playStrategy(new Earn(getTurnPlayer(), getDesk()));
+        gameServices.playStrategy(getPlayer(0), new Earn(getTurnPlayer(), getDesk()));
         changeTurn();
     }
 
     public void foreignAid() {
-        gameServices.playStrategy(new ForeignAid(getTurnPlayer(), getDesk()));
+        gameServices.playStrategy(getPlayer(0), new ForeignAid(getTurnPlayer(), getDesk()));
         changeTurn();
     }
 
@@ -103,7 +103,7 @@ public class ViewController {
             wrongChoice();
             coup();
         } else {
-            gameServices.playStrategy(new Coup(getTurnPlayer(), getPlayer(chosenPlayerId), getGameService()));
+            gameServices.playStrategy(getPlayer(0), new Coup(getTurnPlayer(), getPlayer(chosenPlayerId), getGameService()));
             changeTurn();
         }
     }
@@ -114,7 +114,7 @@ public class ViewController {
     }
 
     public void dukeStrategy() {
-        gameServices.playStrategy(new DukeStrategy(getTurnPlayer(), getDesk()));
+        gameServices.playStrategy(getPlayer(0), new DukeStrategy(getTurnPlayer(), getDesk()));
         changeTurn();
     }
 
@@ -128,7 +128,7 @@ public class ViewController {
                 wrongChoice();
                 assassinStrategy();
             } else {
-                gameServices.playStrategy(new AssassinStrategy(getTurnPlayer(), getPlayer(playerId), gameServices));
+                gameServices.playStrategy(getPlayer(0), new AssassinStrategy(getTurnPlayer(), getPlayer(playerId), gameServices));
                 changeTurn();
             }
         } else {
@@ -147,21 +147,21 @@ public class ViewController {
             wrongChoice();
             commanderStrategy();
         } else {
-            gameServices.playStrategy(new CommanderStrategy(getTurnPlayer(), getPlayer(playerId)));
+            gameServices.playStrategy(getPlayer(0), new CommanderStrategy(getTurnPlayer(), getPlayer(playerId)));
             changeTurn();
         }
     }
 
     public void ambassadorStrategy() {
         Player turnPlayer = getTurnPlayer();
-        gameServices.playStrategy(new AmbassadorStrategy(turnPlayer, getDesk()));
+        gameServices.playStrategy(getPlayer(0), new AmbassadorStrategy(turnPlayer, getDesk()));
         selectCards(turnPlayer);
     }
 
     public void changeCard() {
         Player turnPlayer = getTurnPlayer();
         if (turnPlayer.getCoin() > 0) {
-            gameServices.playStrategy(new ChangeCardStrategy(turnPlayer, getDesk()));
+            gameServices.playStrategy(getPlayer(0), new ChangeCardStrategy(turnPlayer, getDesk()));
             selectCards(turnPlayer);
         } else {
             JOptionPane.showMessageDialog(null,

@@ -1,6 +1,7 @@
 package game.strategy.attackStrategy;
 
 import game.GameServices;
+import game.strategy.Strategy;
 import player.Player;
 
 public class AssassinStrategy extends Strategy {
@@ -22,6 +23,18 @@ public class AssassinStrategy extends Strategy {
 
     @Override
     public String getName() {
-        return "Assassin strategy";
+        return "Assassin";
+    }
+
+    public Player getAssassin() {
+        return assassin;
+    }
+
+    public Player getKilled() {
+        return killed;
+    }
+
+    public GameServices getGameServices() {
+        return gameServices;
     }
 }

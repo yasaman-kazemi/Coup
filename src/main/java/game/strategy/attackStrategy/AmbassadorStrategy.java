@@ -2,6 +2,7 @@ package game.strategy.attackStrategy;
 
 import card.Card;
 import game.Desk;
+import game.strategy.Strategy;
 import player.Player;
 
 public class AmbassadorStrategy extends Strategy {
@@ -23,6 +24,14 @@ public class AmbassadorStrategy extends Strategy {
 
     @Override
     public String getName() {
-        return "Ambassador strategy";
+        return "Ambassador";
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Desk getDesk() {
+        return desk;
     }
 }
