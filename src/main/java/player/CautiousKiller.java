@@ -20,44 +20,25 @@ public class CautiousKiller extends Player {
         Card assassinCard = getCard("Assassin");
         if (assassinCard != null && assassinCard.isHide()) {
             if (coin > 2) {
-                String[] alivePlayers = gameServices.getAlivePlayers();
-                ArrayList<String> filteredAlivePlayers = getFilteredPlayers(alivePlayers);
-                Player player = getRandomPlayerForShot(filteredAlivePlayers);
-                new AssassinStrategy(this, player, gameServices).play();
+                Player player = gameServices.getRandomAlivePlayer(this);
+                gameServices.playStrategy(new AssassinStrategy(this, player, gameServices));
             } else {
-                new ForeignAid(this, gameServices.getDesk()).play();
+                gameServices.playStrategy(new ForeignAid(this, gameServices.getDesk()));
             }
         } else {
             Card ambassador = getCard("Ambassador");
             if (ambassador != null && ambassador.isHide()) {
-                new AmbassadorStrategy(this, gameServices.getDesk());
+                gameServices.playStrategy(new AmbassadorStrategy(this, gameServices.getDesk()));
                 gameServices.selectCards(this);
             } else {
                 if (coin > 0) {
-                    new ChangeCardStrategy(this, gameServices.getDesk()).play();
+                    gameServices.playStrategy(new ChangeCardStrategy(this, gameServices.getDesk()));
                     gameServices.selectCards(this);
                 } else {
-                    new ForeignAid(this, gameServices.getDesk()).play();
+                    gameServices.playStrategy(new ForeignAid(this, gameServices.getDesk()));
                 }
             }
         }
-    }
-
-    private ArrayList<String> getFilteredPlayers(String[] alivePlayers) {
-        ArrayList<String> filteredAlivePlayers = new ArrayList<>();
-        for (String alivePlayer : alivePlayers)
-            if (!alivePlayer.equals("*"))
-                filteredAlivePlayers.add(alivePlayer);
-        return filteredAlivePlayers;
-    }
-
-    private Player getRandomPlayerForShot(ArrayList<String> filteredAlivePlayers) {
-        String side = filteredAlivePlayers.get(new Random().nextInt(filteredAlivePlayers.size()));
-        Player player = gameServices.getPlayer(side);
-        if (player.equals(this)){
-            player = getRandomPlayerForShot(filteredAlivePlayers);
-        }
-        return player;
     }
 
     @Override

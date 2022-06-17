@@ -1,15 +1,14 @@
 package game;
 
-import card.Card;
 import player.Player;
 
 public class Challenge {
     private Player player;
-    private Card card;
+    private String cardName;
 
-    public Challenge(Player player, Card card) {
+    public Challenge(Player player, String cardName) {
         this.player = player;
-        this.card = card;
+        this.cardName = cardName;
     }
 
     public Player getPlayer() {
@@ -20,11 +19,11 @@ public class Challenge {
         this.player = player;
     }
 
-    public Card getCard() {
-        return card;
+    public String getCardName() {
+        return cardName;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 }

@@ -8,6 +8,11 @@ public class Paranoid extends Player {
     }
 
     @Override
+    public void play() {
+        //todo
+    }
+
+    @Override
     public String getName() {
         return "Paranoid";
     }

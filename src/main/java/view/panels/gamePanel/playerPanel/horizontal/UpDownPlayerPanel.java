@@ -1,6 +1,5 @@
 package view.panels.gamePanel.playerPanel.horizontal;
 
-import card.*;
 import player.*;
 import utils.ImageLoader;
 import view.panels.gamePanel.playerPanel.PlayerPanel;
@@ -8,7 +7,6 @@ import view.panels.gamePanel.playerPanel.PlayerPanel;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class UpDownPlayerPanel extends PlayerPanel {
     private CoinPanel coinPanel;
@@ -21,8 +19,8 @@ public class UpDownPlayerPanel extends PlayerPanel {
         String imageAddress1 = getImageAddress(player.getCards().get(0), isDown, isDown, false);
         String imageAddress2 = getImageAddress(player.getCards().get(1), isDown, isDown, false);
         coinPanel = new CoinPanel(ImageLoader.getCoin(), player.getCoin());
-        cardPanel1 = new CardPanel(imageAddress1);
-        cardPanel2 = new CardPanel(imageAddress2);
+        cardPanel1 = new CardPanel(imageAddress1, player.getCards().get(0).isHide(), isDown);
+        cardPanel2 = new CardPanel(imageAddress2, player.getCards().get(1).isHide(), isDown);
         profilePanel = new ProfilePanel(getImage(player));
 
         if (isYourTurn) {
@@ -62,7 +60,7 @@ public class UpDownPlayerPanel extends PlayerPanel {
             return ImageLoader.getUpCouper();
         } else if (player instanceof Mystery) {
             return ImageLoader.getUpMystery();
-        } else if (player instanceof Paranoid){
+        } else if (player instanceof Paranoid) {
             return ImageLoader.getUpParanoid();
         } else {
             return ImageLoader.getTempAvatar();

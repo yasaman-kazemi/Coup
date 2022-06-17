@@ -3,7 +3,7 @@ package game.strategy.attackStrategy;
 import game.Desk;
 import player.Player;
 
-public class DukeStrategy extends Strategy{
+public class DukeStrategy extends Strategy {
     private Player player;
     private Desk desk;
 
@@ -15,5 +15,10 @@ public class DukeStrategy extends Strategy{
     @Override
     public void play() {
         desk.giveCoin(player, 3);
+    }
+
+    @Override
+    public String getName() {
+        return "Duke strategy";
     }
 }

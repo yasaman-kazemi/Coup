@@ -66,13 +66,18 @@ public class ViewController {
         return gameServices;
     }
 
+    public void changeTurn() {
+        gameServices.changeTurn();
+        refresh();
+    }
+
     public void earn() {
-        new Earn(getTurnPlayer(), getDesk()).play();
+        gameServices.playStrategy(new Earn(getTurnPlayer(), getDesk()));
         changeTurn();
     }
 
     public void foreignAid() {
-        new ForeignAid(getTurnPlayer(), getDesk()).play();
+        gameServices.playStrategy(new ForeignAid(getTurnPlayer(), getDesk()));
         changeTurn();
     }
 
@@ -98,8 +103,7 @@ public class ViewController {
             wrongChoice();
             coup();
         } else {
-            new Coup(getTurnPlayer(), getPlayer(chosenPlayerId),
-                    getDesk(), getGameService()).play();
+            gameServices.playStrategy(new Coup(getTurnPlayer(), getPlayer(chosenPlayerId), getGameService()));
             changeTurn();
         }
     }
@@ -110,7 +114,7 @@ public class ViewController {
     }
 
     public void dukeStrategy() {
-        new DukeStrategy(getTurnPlayer(), getDesk()).play();
+        gameServices.playStrategy(new DukeStrategy(getTurnPlayer(), getDesk()));
         changeTurn();
     }
 
@@ -124,7 +128,7 @@ public class ViewController {
                 wrongChoice();
                 assassinStrategy();
             } else {
-                new AssassinStrategy(getTurnPlayer(), getPlayer(playerId), gameServices).play();
+                gameServices.playStrategy(new AssassinStrategy(getTurnPlayer(), getPlayer(playerId), gameServices));
                 changeTurn();
             }
         } else {
@@ -143,44 +147,36 @@ public class ViewController {
             wrongChoice();
             commanderStrategy();
         } else {
-            new CommanderStrategy(getTurnPlayer(), getPlayer(playerId)).play();
+            gameServices.playStrategy(new CommanderStrategy(getTurnPlayer(), getPlayer(playerId)));
             changeTurn();
         }
     }
 
     public void ambassadorStrategy() {
         Player turnPlayer = getTurnPlayer();
-        new AmbassadorStrategy(turnPlayer, getDesk()).play();
-        ArrayList<Card> cards = turnPlayer.getCards();
-        int selectionNumber = 2;
-        for (int i = 0; i < 4; i++) {
-            if (!cards.get(i).isHide()) {
-                selectionNumber--;
-            }
-        }
-        new CardSelectionFrame(this, cards.toArray(new Card[4]), selectionNumber);
-
-    }
-
-    public void changeTurn() {
-        gameServices.changeTurn();
-        refresh();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        gameServices.playStrategy(new AmbassadorStrategy(turnPlayer, getDesk()));
+        selectCards(turnPlayer);
     }
 
     public void changeCard() {
-        if (getTurnPlayer().getCoin() > 0) {
-            new ChangeCardStrategy(getTurnPlayer(), getDesk()).play();
-            changeTurn();
+        Player turnPlayer = getTurnPlayer();
+        if (turnPlayer.getCoin() > 0) {
+            gameServices.playStrategy(new ChangeCardStrategy(turnPlayer, getDesk()));
+            selectCards(turnPlayer);
         } else {
             JOptionPane.showMessageDialog(null,
                     "You don't have enough coin to change card", "Not enough coin",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void selectCards(Player turnPlayer) {
+        ArrayList<Card> cards = turnPlayer.getCards();
+        int selectionNumber = 2;
+        for (Card card : cards)
+            if (!card.isHide())
+                selectionNumber--;
+        new CardSelectionFrame(this, cards.toArray(new Card[0]), selectionNumber);
     }
 
     public void selectCards(Card[] cards, int[] selectedIndexes, CardSelectionFrame cardSelectionFrame) {

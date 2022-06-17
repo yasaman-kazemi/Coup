@@ -1,10 +1,13 @@
 package game;
 
 import card.Card;
+import game.strategy.attackStrategy.Strategy;
 import player.CautiousKiller;
 import player.Player;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameServices {
     private Game game;
@@ -36,20 +39,23 @@ public class GameServices {
         beCouped.kill();
     }
 
-    public void coupAgainst(Player beCouped, Card card) {
-        beCouped.kill(card);
-    }
-
     public void kill(Player killed) {
         killed.kill();
     }
 
-    public void kill(Player killed, Card card) {
-        killed.kill(card);
+    public void challenge(Player player, String cardName) {
+        Challenge challenge = new Challenge(player, cardName);
     }
 
-    public void challenge(Player player, Card card) {
-        Challenge challenge = new Challenge(player, card);
+    public void playStrategy(Player player, Strategy strategy) {
+        int response = JOptionPane.showConfirmDialog(null,
+                "will you challenge " + player.getName() + " for " + strategy.getName(), "Challenging",
+                JOptionPane.YES_NO_OPTION);
+        if (response == 0) {
+
+        } else {
+            strategy.play();
+        }
     }
 
     public Player[] getPlayers() {
@@ -174,5 +180,23 @@ public class GameServices {
             getDesk().giveCard(card);
         }
         cautiousKiller.setCards(chosenCards);
+    }
+
+    public ArrayList<String> getFilteredAlivePlayers() {
+        ArrayList<String> filteredAlivePlayers = new ArrayList<>();
+        for (String alivePlayer : getAlivePlayers())
+            if (!alivePlayer.equals("*"))
+                filteredAlivePlayers.add(alivePlayer);
+        return filteredAlivePlayers;
+    }
+
+    public Player getRandomAlivePlayer(Player player) {
+        ArrayList<String> filteredAlivePlayers = getFilteredAlivePlayers();
+        String side = filteredAlivePlayers.get(new Random().nextInt(filteredAlivePlayers.size()));
+        Player result = getPlayer(side);
+        if (result.equals(player)){
+            result = getRandomAlivePlayer(player);
+        }
+        return result;
     }
 }

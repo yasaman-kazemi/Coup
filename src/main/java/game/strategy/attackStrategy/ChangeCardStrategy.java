@@ -2,10 +2,9 @@ package game.strategy.attackStrategy;
 
 import card.Card;
 import game.Desk;
-import game.GameServices;
 import player.Player;
 
-public class ChangeCardStrategy extends Strategy{
+public class ChangeCardStrategy extends Strategy {
     private Player player;
     private Desk desk;
 
@@ -19,5 +18,10 @@ public class ChangeCardStrategy extends Strategy{
         desk.receiveCoin(player, 1);
         Card card = desk.getRandomCard();
         player.getCards().add(card);
+    }
+
+    @Override
+    public String getName() {
+        return "Change cards strategy";
     }
 }

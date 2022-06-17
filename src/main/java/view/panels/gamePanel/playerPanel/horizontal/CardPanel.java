@@ -8,6 +8,14 @@ import java.io.IOException;
 
 public class CardPanel extends JPanel {
     protected Image image;
+    private boolean isHidden = true;
+    private boolean isYou;
+
+    public CardPanel(String imageAddress, boolean isHidden, boolean isYou) {
+        this(imageAddress);
+        this.isYou = isYou;
+        this.isHidden = isHidden;
+    }
 
     public CardPanel(String imageAddress) {
         try {
@@ -34,6 +42,7 @@ public class CardPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, this);
+        if (isHidden || !isYou) g.drawImage(image, 0, 0, this);
+        else g.drawImage(image, 0, 64, this);
     }
 }

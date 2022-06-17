@@ -19,4 +19,9 @@ public class AssassinStrategy extends Strategy {
         gameServices.getDesk().receiveCoin(assassin, 3);
         gameServices.kill(killed);
     }
+
+    @Override
+    public String getName() {
+        return "Assassin strategy";
+    }
 }

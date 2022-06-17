@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ProfilePanel extends CardPanel {
+
     public ProfilePanel(String imageAddress) {
         super(imageAddress);
         setBackground(new java.awt.Color(51, 102, 204));

@@ -32,16 +32,16 @@ public class CardSelectionFrame extends JFrame {
 
     private void initComponents(Card[] cards) {
         mainPanel = new JPanel();
-        cardPanels[0] = new CardPanel(getImage(cards[0]));
-        cardPanels[1] = new CardPanel(getImage(cards[1]));
-        cardPanels[2] = new CardPanel(getImage(cards[2]));
-        cardPanels[3] = new CardPanel(getImage(cards[3]));
+        for (int i = 0; i < cards.length; i++)
+            cardPanels[i] = new CardPanel(getImage(cards[i]), cards[i].isHide(), true);
+        if (cardPanels[3] == null)
+            cardPanels[3] = new CardPanel(ImageLoader.getBehindCard());
         button = new JButton("done");
 
         button.addActionListener(e -> buttonActionPerformed());
 
-        for (int i = 0; i < 4; i++) {
-            if (!cards[i].equals("*")) {
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i].isHide()) {
                 int finalI = i;
                 cardPanels[i].addMouseListener(new MouseAdapter() {
                     @Override

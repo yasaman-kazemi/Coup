@@ -2,7 +2,7 @@ package game.strategy.attackStrategy;
 
 import player.Player;
 
-public class CommanderStrategy extends Strategy{
+public class CommanderStrategy extends Strategy {
     private Player commander;
     private Player robbed;
 
@@ -15,5 +15,10 @@ public class CommanderStrategy extends Strategy{
     public void play() {
         commander.increaseCoin(2);
         robbed.decreaseCoin(2);
+    }
+
+    @Override
+    public String getName() {
+        return "Commander strategy";
     }
 }
