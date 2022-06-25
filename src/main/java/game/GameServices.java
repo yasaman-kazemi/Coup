@@ -40,37 +40,62 @@ public class GameServices {
     }
 
     public void coupAgainst(Player beCouped) {
-        beCouped.kill();
+        kill(beCouped);
     }
 
     public void kill(Player killed) {
         killed.kill();
+        if (killed.isDead())
+            getDesk().receiveCoin(killed, killed.getCoin());
     }
 
     public int challenge(Player challenger, Player challenged, Strategy strategy) {
-        if (challenger.isDead()) return 0;
-        String cardName = strategy.getName();
-        if (challenger.equals(challenged) || cardName.equals("Change cards") || cardName.equals("Coup") ||
-                cardName.equals("Earn") || cardName.equals("Foreign aid")) return 0;
-        int response = 0;
-        if (challenger.equals(getPlayers()[0])) {
-            String msg = "will you challenge " + challenged.getName() + " for " + cardName;
-            if (strategy instanceof AssassinStrategy) {
-                String opponentName = ((AssassinStrategy) strategy).getKilled().getName();
-                msg = msg + " against " + opponentName;
-            } else if (strategy instanceof CommanderStrategy) {
-                String opponentName = ((CommanderStrategy) strategy).getRobbed().getName();
-                msg = msg + " against " + opponentName;
+        int result = 0;
+        if (!challenger.isDead()) {
+            boolean hasChallenged = false;
+            String cardName = strategy.getName();
+            if (!challenger.equals(challenged) && !cardName.equals("Change cards") && !cardName.equals("Coup") &&
+                    !cardName.equals("Earn") && !cardName.equals("Foreign aid")) {
+                int response = 0;
+                if (challenger.equals(getPlayers()[0])) {
+                    String msg = "will you challenge " + challenged.getName() + " for " + cardName;
+                    if (strategy instanceof AssassinStrategy) {
+                        String opponentName = ((AssassinStrategy) strategy).getKilled().getName();
+                        msg = msg + " against " + opponentName;
+                    } else if (strategy instanceof CommanderStrategy) {
+                        String opponentName = ((CommanderStrategy) strategy).getRobbed().getName();
+                        msg = msg + " against " + opponentName;
+                    }
+                    response = JOptionPane.showConfirmDialog(null,
+                            msg, "Challenging",
+                            JOptionPane.YES_NO_OPTION);
+                }
+                if (response == 0) {
+                    Challenge challenge = new Challenge(challenger, challenged, cardName, this);
+                    result = challenge.play();
+                    hasChallenged = true;
+                }
             }
-            response = JOptionPane.showConfirmDialog(null,
-                    msg, "Challenging",
-                    JOptionPane.YES_NO_OPTION);
+            if (hasChallenged) {
+                if (result == -1) {
+                    JOptionPane.showMessageDialog(null, challenged.getName() + " lost the challenge");
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            challenged.getName() + " won the challenge\n" +
+                                    challenged.getName() + " played " + cardName);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, challenged.getName() + " played " + cardName);
+            }
         }
-        if (response == 0) {
-            Challenge challenge = new Challenge(challenger, challenged, cardName, getDesk());
-            return challenge.play();
-        }
-        return 0;
+        return result;
+    }
+
+    public void change1CardRandomly(Player challenged, Card card) {
+        Card randomCard = getDesk().getRandomCard();
+        challenged.getCards().add(randomCard);
+        challenged.getCards().remove(card);
+        getDesk().giveCard(card);
     }
 
     public void playStrategy(Player player, Strategy strategy) {

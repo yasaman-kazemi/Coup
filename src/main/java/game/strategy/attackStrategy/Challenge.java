@@ -1,33 +1,30 @@
 package game.strategy.attackStrategy;
 
 import card.Card;
-import game.Desk;
+import game.GameServices;
 import player.Player;
 
 public class Challenge {
     private Player challenger;
     private Player challenged;
     private String cardName;
-    private Desk desk;
+    private GameServices gameServices;
 
-    public Challenge(Player challenger, Player challenged, String cardName, Desk desk) {
+    public Challenge(Player challenger, Player challenged, String cardName, GameServices gameServices) {
         this.challenger = challenger;
         this.challenged = challenged;
         this.cardName = cardName;
-        this.desk = desk;
+        this.gameServices = gameServices;
     }
 
     public int play() {
         Card card = challenged.getCard(cardName);
         if (card == null || !card.isHide()) {
-            challenged.kill();
+            gameServices.kill(challenged);
             return -1;
         } else {
-            Card randomCard = desk.getRandomCard();
-            challenged.getCards().add(randomCard);
-            challenged.getCards().remove(card);
-            desk.giveCard(card);
-            challenger.kill();
+            gameServices.change1CardRandomly(challenged, card);
+            gameServices.kill(challenger);
             return 1;
         }
     }
@@ -46,9 +43,5 @@ public class Challenge {
 
     public Player getChallenger() {
         return challenger;
-    }
-
-    public Desk getDesk() {
-        return desk;
     }
 }

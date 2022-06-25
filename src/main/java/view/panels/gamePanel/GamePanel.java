@@ -1,6 +1,5 @@
 package view.panels.gamePanel;
 
-import player.Player;
 import view.MyPanel;
 import view.ViewController;
 import view.panels.gamePanel.playerPanel.horizontal.UpDownPlayerPanel;
@@ -18,7 +17,6 @@ public class GamePanel extends MyPanel {
     private JComboBox<String> attackActionSelection;
     private JComboBox<String> defenseActionSelection;
     private JButton doButton;
-    private JButton bluffButton;
     private String[] attackList;
     private String[] defenseList;
 
@@ -31,42 +29,6 @@ public class GamePanel extends MyPanel {
         return viewController.getTurn();
     }
 
-    private void doButtonActionPerformed() {
-        if (getTurn() == 0) {
-            String attackOrder = (String) attackActionSelection.getSelectedItem();
-            if (attackOrder != null) {
-                switch (attackOrder) {
-                    case "take 1 coin":
-                        viewController.earn();
-                        break;
-                    case "take 2 coin":
-                        viewController.foreignAid();
-                        break;
-                    case "coup":
-                        viewController.coup();
-                        break;
-                    case "change card":
-                        viewController.changeCard();
-                        break;
-                    case "duke: get 3 coin":
-                        viewController.dukeStrategy();
-                        break;
-                    case "assassin: kill other":
-                        viewController.assassinStrategy();
-                        break;
-                    case "commander: take 2 coin from other":
-                        viewController.commanderStrategy();
-                        break;
-                    case "ambassador: change cards":
-                        viewController.ambassadorStrategy();
-                }
-            }
-        } else {
-            viewController.getTurnPlayer().play();
-            viewController.changeTurn();
-        }
-    }
-
     private void initComponents() {
         int turnPlayer = getTurn();
         centerPanel = new CenterPanel(viewController.getDeskCoin());
@@ -74,7 +36,6 @@ public class GamePanel extends MyPanel {
         rightPlayerPanel = new LeftRightPlayerPanel(viewController.getPlayer(1), false, turnPlayer == 1);
         upPlayerPanel = new UpDownPlayerPanel(viewController.getPlayer(2), false, turnPlayer == 2);
         leftPlayerPanel = new LeftRightPlayerPanel(viewController.getPlayer(3), true, turnPlayer == 3);
-        bluffButton = new JButton("take bluff");
 
         setPreferredSize(new java.awt.Dimension(808, 588));
 
@@ -125,7 +86,6 @@ public class GamePanel extends MyPanel {
                                                         .addComponent(attackActionSelection, 0, 1, Short.MAX_VALUE)))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                                                .addComponent(bluffButton)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(doButton))))
         );
@@ -154,13 +114,48 @@ public class GamePanel extends MyPanel {
                                         .addComponent(defenseLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(doButton)
-                                        .addComponent(bluffButton))
+                                        .addComponent(doButton))
                                 .addContainerGap(39, Short.MAX_VALUE))
         );
         doButton.setEnabled(true);
         attackActionSelection.setEnabled(true);
         defenseActionSelection.setEnabled(false);
         doButton.addActionListener(e -> doButtonActionPerformed());
+    }
+
+    private void doButtonActionPerformed() {
+        if (getTurn() == 0) {
+            String attackOrder = (String) attackActionSelection.getSelectedItem();
+            if (attackOrder != null) {
+                switch (attackOrder) {
+                    case "take 1 coin":
+                        viewController.earn();
+                        break;
+                    case "take 2 coin":
+                        viewController.foreignAid();
+                        break;
+                    case "coup":
+                        viewController.coup();
+                        break;
+                    case "change card":
+                        viewController.changeCard();
+                        break;
+                    case "duke: get 3 coin":
+                        viewController.dukeStrategy();
+                        break;
+                    case "assassin: kill other":
+                        viewController.assassinStrategy();
+                        break;
+                    case "commander: take 2 coin from other":
+                        viewController.commanderStrategy();
+                        break;
+                    case "ambassador: change cards":
+                        viewController.ambassadorStrategy();
+                }
+            }
+        } else {
+            viewController.getTurnPlayer().play();
+            viewController.changeTurn();
+        }
     }
 }
